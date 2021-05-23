@@ -22,18 +22,18 @@ public class StabilityScript : MonoBehaviour {
     private List<int> correctSquaresState = new List<int>();
     private List<int> correctSquaresLED = new List<int>();
     private Coroutine[] coroutines = new Coroutine[2];
-    private int[][] table1 = { new int[] { 13, 7, 17, 32, 3, 30, 32, 6, 22, 5 }, 
-                               new int[] { 3, 34, 15, 0, 17, 11, 22, 33, 20, 25 },
-                               new int[] { 17, 0, 17, 32, 10, 15, 1, 4, 17, 16 } };
-    private int[][] table2 = { new int[] { 34, 27, 34, 13, 25, 6, 31, 14, 31, 8 },
-                               new int[] { 29, 17, 9, 33, 11, 18, 31, 13, 10, 8 },
-                               new int[] { 14, 4, 18, 24, 5, 5, 14, 27, 20, 28 } };
-    private int[][] table3 = { new int[] { 20, 2, 33, 23, 5, 0, 20, 29, 1, 8 },
-                               new int[] { 17, 22, 6, 30, 17, 5, 7, 16, 32, 29 },
-                               new int[] { 2, 15, 27, 11, 30, 12, 21, 13, 29, 9 } };
-    private int[][] table4 = { new int[] { 27, 6, 14, 14, 35, 4, 23, 23, 33, 33 },
-                               new int[] { 0, 18, 4, 0, 34, 17, 13, 35, 9, 26 },
-                               new int[] { 17, 10, 0, 20, 34, 24, 24, 17, 1, 6 } };
+    private int[][] table1 = { new int[] { 8, 7, 32, 17, 18, 5, 17, 1, 27, 30 }, 
+                               new int[] { 18, 29, 20, 0, 32, 31, 27, 23, 15, 10 },
+                               new int[] { 32, 0, 9, 17, 25, 20, 6, 24, 32, 26 } };
+    private int[][] table2 = { new int[] { 29, 22, 29, 8, 10, 1, 11, 14, 11, 13 },
+                               new int[] { 34, 9, 19, 23, 31, 3, 11, 8, 25, 13 },
+                               new int[] { 14, 24, 3, 4, 30, 30, 14, 22, 15, 28 } };
+    private int[][] table3 = { new int[] { 15, 12, 23, 33, 30, 0, 15, 34, 6, 13 },
+                               new int[] { 32, 27, 1, 5, 32, 30, 7, 26, 17, 34 },
+                               new int[] { 12, 20, 22, 31, 5, 2, 21, 8, 34, 19 } };
+    private int[][] table4 = { new int[] { 22, 1, 14, 14, 35, 24, 33, 33, 23, 23 },
+                               new int[] { 0, 3, 24, 0, 29, 32, 8, 35, 19, 16 },
+                               new int[] { 32, 25, 0, 15, 29, 4, 4, 32, 6, 1 } };
     private int[][] table1States = { new int[] { 1, 1, 0, 0, 1, 1, 1, 0, 1, 0 },
                                      new int[] { 1, 0, 1, 0, 0, 0, 1, 0, 1, 1 },
                                      new int[] { 0, 1, 1, 1, 1, 1, 0, 0, 1, 0 } };
@@ -46,7 +46,7 @@ public class StabilityScript : MonoBehaviour {
     private int[][] table4States = { new int[] { 0, 0, 0, 1, 0, 0, 1, 0, 0, 0 },
                                      new int[] { 1, 0, 1, 0, 1, 1, 0, 1, 0, 0 },
                                      new int[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 1} };
-    private string[] coords = { "A1", "B1", "C1", "D1", "E1", "F1", "A2", "B2", "C2", "D2", "E2", "F2", "A3", "B3", "C3", "D3", "E3", "F3", "A4", "B4", "C4", "D4", "E4", "F4", "A5", "B5", "C5", "D5", "E5", "F5", "A6", "B6", "C6", "D6", "E6", "F6" };
+    private string[] coords = { "A1", "A2", "A3", "A4", "A5", "A6", "B1", "B2", "B3", "B4", "B5", "B6", "C1", "C2", "C3", "C4", "C5", "C6", "D1", "D2", "D3", "D4", "D5", "D6", "E1", "E2", "E3", "E4", "E5", "E6", "F1", "F2", "F3", "F4", "F5", "F6" };
     private string[] states = new string[36];
     private int[] ledStates = new int[6];
     private string idNumber;
@@ -400,7 +400,7 @@ public class StabilityScript : MonoBehaviour {
         while (currentNum != 0f)
         {
             float t = 0;
-            while (t < (0.01f / (naturalNum - 1f)))
+            while (t < (0.01f - ((naturalNum - 2f) / 800)))
             {
                 yield return null;
                 t += Time.deltaTime;
