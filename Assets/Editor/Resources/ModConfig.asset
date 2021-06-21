@@ -16,8 +16,8 @@ MonoBehaviour:
   author: eXish, Lumbud84
   description: "It doesn\u2019t matter what kind of explosives we\u2019re dealing
     with. \r\nIt all looks the same when it goes off.\r\n\r\nHTML: https://ktane.timwi.de/HTML/Stability.html\r\nPDF:
-    https://ktane.timwi.de/PDF/Stability.pdf\r\n\r\nStability (stabilityModule) v1.0.1\nModule
+    https://ktane.timwi.de/PDF/Stability.pdf\r\n\r\nStability (stabilityModule) v1.0.2\nModule
     Idea by Lumbud84\nImplemented by eXish\r\nTwitch Plays supported"
-  version: 1.0.1
+  version: 1.0.2
   outputFolder: build
   previewImage: {fileID: 2800000, guid: eccb5e87a0b50a4488622adb91e54a6f, type: 3}

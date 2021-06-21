@@ -127,67 +127,66 @@ public class StabilityScript : MonoBehaviour {
             {
                 temp[i] = UnityEngine.Random.Range(0, 3);
             }
+            for (int i = 0; i < 2; i++)
+                temp.Add(UnityEngine.Random.Range(0, 3));
             temp = temp.Shuffle();
             for (int i = 0; i < 6; i++)
             {
-                if (i < 4)
-                {
-                    ledStates[i] = temp[i];
-                    if (ledStates[i] != 5)
-                        correctSquaresLED.Add(i);
-                }
-                else
-                {
-                    ledStates[i] = UnityEngine.Random.Range(0, 3);
-                }
-            }
-            correctSquaresLED.Add(4);
-            correctSquaresLED.Add(5);
-        }
-        for (int i = 0; i < 4; i++)
-        {
-            if (ledStates[i] != 5)
-            {
-                switch (i)
-                {
-                    case 0:
-                        correctSquares.Add(table1[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        correctSquaresState.Add(table1States[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        break;
-                    case 1:
-                        correctSquares.Add(table2[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        correctSquaresState.Add(table2States[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        break;
-                    case 2:
-                        correctSquares.Add(table3[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        correctSquaresState.Add(table3States[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        break;
-                    case 3:
-                        correctSquares.Add(table4[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        correctSquaresState.Add(table4States[ledStates[i]][int.Parse(idNumber[i].ToString())]);
-                        break;
-                }
+                ledStates[i] = temp[i];
+                if (ledStates[i] != 5)
+                    correctSquaresLED.Add(i);
             }
         }
+        int ct = 0;
         int sum = 0;
         for (int i = 0; i < 4; i++)
             sum += int.Parse(idNumber[i].ToString());
-        if (sum > 0)
-            correctSquares.Add(sum - 1);
-        else
-            correctSquares.Add(-1);
-        if (ledStates[4] == 2)
-            correctSquaresState.Add(0);
-        else
-            correctSquaresState.Add(1);
-        if ((36 - sum) > 0)
-            correctSquares.Add((36 - sum) - 1);
-        else
-            correctSquares.Add(-1);
-        if (ledStates[5] == 2 || ledStates[5] == 1)
-            correctSquaresState.Add(0);
-        else
-            correctSquaresState.Add(1);
+        for (int i = 0; i < 6; i++)
+        {
+            if (ledStates[i] != 5)
+            {
+                switch (ct)
+                {
+                    case 0:
+                        correctSquares.Add(table1[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        correctSquaresState.Add(table1States[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        break;
+                    case 1:
+                        correctSquares.Add(table2[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        correctSquaresState.Add(table2States[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        break;
+                    case 2:
+                        correctSquares.Add(table3[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        correctSquaresState.Add(table3States[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        break;
+                    case 3:
+                        correctSquares.Add(table4[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        correctSquaresState.Add(table4States[ledStates[i]][int.Parse(idNumber[ct].ToString())]);
+                        break;
+                    case 4:
+                        if (sum > 0)
+                            correctSquares.Add(sum - 1);
+                        else
+                            correctSquares.Add(-1);
+                        if (ledStates[i] == 2)
+                            correctSquaresState.Add(0);
+                        else
+                            correctSquaresState.Add(1);
+                        break;
+                    case 5:
+                        if ((36 - sum) > 0)
+                            correctSquares.Add((36 - sum) - 1);
+                        else
+                            correctSquares.Add(-1);
+                        if (ledStates[i] == 2 || ledStates[i] == 1)
+                            correctSquaresState.Add(0);
+                        else
+                            correctSquaresState.Add(1);
+                        break;
+                }
+                ct++;
+            }
+        }
         if (!regenIdOnly)
             Debug.LogFormat("[Stability #{0}] Identification Number: {1}", moduleId, idNumber);
         else
@@ -239,7 +238,7 @@ public class StabilityScript : MonoBehaviour {
             else if (((correctSquares[currentSquare] == index) || (correctSquares[currentSquare] == -1)) && (correctSquaresState[currentSquare] == int.Parse(states[index][currentState].ToString())))
             {
                 ledRenderers[correctSquaresLED[currentSquare]].material = materials[6];
-                if (correctSquaresLED[currentSquare] == 5)
+                if (correctSquaresLED[currentSquare] == correctSquaresLED.Last())
                 {
                     animating = true;
                     StopCoroutine(coroutines[0]);
