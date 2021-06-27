@@ -47,6 +47,7 @@ public class StabilityScript : MonoBehaviour {
                                      new int[] { 1, 0, 1, 0, 1, 1, 0, 1, 0, 0 },
                                      new int[] { 0, 1, 1, 1, 1, 0, 0, 0, 0, 1} };
     private string[] coords = { "A1", "A2", "A3", "A4", "A5", "A6", "B1", "B2", "B3", "B4", "B5", "B6", "C1", "C2", "C3", "C4", "C5", "C6", "D1", "D2", "D3", "D4", "D5", "D6", "E1", "E2", "E3", "E4", "E5", "E6", "F1", "F2", "F3", "F4", "F5", "F6" };
+    private string[] colorNames = { "Red", "Yellow", "Blue", "Off" };
     private string[] states = new string[36];
     private int[] ledStates = new int[6];
     private string idNumber;
@@ -130,12 +131,28 @@ public class StabilityScript : MonoBehaviour {
             for (int i = 0; i < 2; i++)
                 temp.Add(UnityEngine.Random.Range(0, 3));
             temp = temp.Shuffle();
+            string logStrips = "";
             for (int i = 0; i < 6; i++)
             {
                 ledStates[i] = temp[i];
+                if (i == 5)
+                {
+                    if (ledStates[i] == 5)
+                        logStrips += colorNames[3];
+                    else
+                        logStrips += colorNames[ledStates[i]];
+                }
+                else
+                {
+                    if (ledStates[i] == 5)
+                        logStrips += colorNames[3] + ", ";
+                    else
+                        logStrips += colorNames[ledStates[i]] + ", ";
+                }
                 if (ledStates[i] != 5)
                     correctSquaresLED.Add(i);
             }
+            Debug.LogFormat("[Stability #{0}] LED Strips: {1}", moduleId, logStrips);
         }
         int ct = 0;
         int sum = 0;
