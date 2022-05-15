@@ -1,5 +1,5 @@
 Idea and Manual by Lumbud84<br/>
-Implemented by me<br/>
+Implemented by eXish<br/>
 <br/>
 ==Steam Workshop Link==<br/>
 https://steamcommunity.com/sharedfiles/filedetails/?id=2495307001<br/>
